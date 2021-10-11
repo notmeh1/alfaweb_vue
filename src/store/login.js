@@ -4,7 +4,7 @@ export const loginModule = {
   namespaced: true,
   state: {
     logInData: {
-      email: null,
+      email: 'testing', // change to null
       password: null,
     },
   },

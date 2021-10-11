@@ -1,0 +1,57 @@
+<template>
+  <v-row class="my-5">
+    <v-col v-for="card in cardsInfo" :key="card.id" xl="4">
+      <v-card class="mx-5 pa-5 rounded-xl" align="center">
+        <v-img :src="card.img" width="150px" />
+        <v-card-title class="justify-center"
+          ><h2>{{ card.name }}</h2></v-card-title
+        >
+        <v-divider></v-divider>
+        <v-card-text class="justify-start">
+          <div class="font-weight-bold ml-8 mb-2" align=start>Informacion</div>
+        
+        <v-timeline align-top dense align=start>
+          <v-timeline-item small :color="card.color">
+            <div>
+              <div class="font-weight-normal">
+                <strong>Costo:</strong> ${{
+                  card.price.toLocaleString("es-CL")
+                }}
+              </div>
+              <div>
+                <strong>Duracion:</strong> {{ card.durationCourse }} meses
+              </div>
+            </div>
+          </v-timeline-item>
+          <v-timeline-item small :color="card.color">
+            <div>
+              <div class="font-weight-normal">
+                <strong>Cupos disponibles:</strong> ${{ card.stock }}
+              </div>
+              <div><strong>Completado:</strong> {{ card.state }}</div>
+            </div>
+          </v-timeline-item>
+          <v-timeline-item small :color="card.color">
+            <div class="font-weight-normal">
+              <strong>Descripcion:</strong> {{ card.description }}
+            </div>
+          </v-timeline-item>
+        </v-timeline>
+        </v-card-text>
+        <v-btn :color="card.color">Comprar curso</v-btn>
+      </v-card>
+    </v-col>
+  </v-row>
+</template>
+
+<script>
+import { mapState } from "vuex";
+export default {
+  data: () => ({}),
+  computed: {
+    ...mapState({
+      cardsInfo: (state) => state.cardsInfo.cardsInfoList,
+    }),
+  },
+};
+</script>

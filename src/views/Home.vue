@@ -1,19 +1,23 @@
 <template>
   <div>
-    <v-img class="home-bg" src="../assets/home-bg.jpg"> </v-img>
-    <h1 class="centered">Cursos<br>Alfa web</h1>
+    <v-parallax src="../assets/home-bg.jpg">
+      <v-row align="center" justfy="center">
+        <v-col class="text-center">
+          <h1 class="text-h4 font-weight-thin mb-4">Cursos Alfa-Web</h1>
+          <h4>Listado de Cursos</h4>
+        </v-col>
+      </v-row>
+    </v-parallax>
+    <CardsInfo />
   </div>
 </template>
 
-<style lang="scss" scoped>
-.home-bg {
-  opacity: 55%;
-}
-.centered {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 100;
-}
-</style>
+<script>
+import CardsInfo from "../components/cards.vue";
+export default {
+  components: {
+    CardsInfo,
+  },
+};
+</script>
+
