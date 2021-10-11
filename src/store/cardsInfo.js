@@ -1,46 +1,26 @@
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "@/main";
+
 export const cardsInfoModule = {
   namespaced: true,
   state: {
-    cardsInfoList: [
-      {
-        id: 1,
-        name: "HTML Basico",
-        color: "deep-orange",
-        img: "https://www.w3.org/html/logo/downloads/HTML5_Logo_512.png",
-        stock: 35,
-        enrolledQty: 0,
-        price: 10000,
-        durationCourse: 1,
-        description: "Curso basico de HTML para principiantes",
-        registationDate: null,
-        state: true,
-      },
-      {
-        id: 2,
-        name: "CSS para principiantes",
-        color: "blue",
-        img: "https://lineadecodigo.com/wp-content/uploads/2014/04/css.png",
-        stock: 35,
-        enrolledQty: 23,
-        price: 10000,
-        durationCourse: 1,
-        description: "Aprendiendo estilos con CSS desde el nivel mas basico",
-        registationDate: null,
-        state: false,
-      },
-      {
-        id: 3,
-        name: "JavaScript basico de 0 a 100",
-        color: "yellow",
-        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/1200px-Unofficial_JavaScript_logo_2.svg.png",
-        stock: 25,
-        enrolledQty: 0,
-        price: 20000,
-        durationCourse: 2,
-        description: "Programando para la web con JavaScript",
-        registationDate: null,
-        state: true,
-      },
-    ],
+    cardsInfoList: [],
+  },
+  mutations: {
+    GET_COURSES_LIST(state, list) {
+      state.cardsInfoList = list;
+    },
+  },
+  actions: {
+    async getCoursesList({ commit }) {
+      let list = [];
+      await onSnapshot(collection(db, "cardsInfo"), (doc) => {
+        doc.forEach((course) => {
+          list.push({ id: course.id, ...course.data() });
+          commit("GET_COURSES_LIST", list);
+          //console.log(list)
+        }, (list = []));
+      });
+    },
   },
 };

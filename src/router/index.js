@@ -22,6 +22,14 @@ const routes = [
       requireLogin: false,
     }
   },
+  {
+    path: "/admin",
+    name: "Admin",
+    component: () => import(/* webpackChunkName: "admin" */ "../views/CourseAdmin.vue"),
+    meta: {
+      requireLogin: true,
+    }
+  }
   
 ];
 

@@ -1,10 +1,13 @@
 <template>
   <v-app-bar class="rounded-xl px-10 mx-3 mt-1" app flat dense>
     <v-app-bar-title
-      ><v-btn :to="{ name: 'Home' }" plain><span class="text-p font-weight-thin">alfa-web</span></v-btn></v-app-bar-title
+      ><v-btn :to="{ name: 'Home' }" plain
+        ><span class="text-p font-weight-thin">alfa-web</span></v-btn
+      ></v-app-bar-title
     >
     <v-spacer></v-spacer>
     <v-toolbar-items>
+      <v-btn :to="{ name: 'Admin' }" exact v-if="logInData.email">Administrar</v-btn>
       <v-btn :to="{ name: 'Login' }" exact v-if="!logInData.email"
         >Ingresar</v-btn
       >
@@ -17,9 +20,20 @@
         logInData.email
       }}</span></span
     >
-    <v-btn color="error" icon @click="logOut" v-if="logInData.email"
-      ><v-icon>mdi-exit-to-app</v-icon></v-btn
-    >
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          color="error"
+          icon
+          @click="logOut"
+          v-if="logInData.email"
+          v-bind="attrs"
+          v-on="on"
+          ><v-icon>mdi-exit-to-app</v-icon></v-btn
+        >
+      </template>
+      <span>Cerrar sesion</span>
+    </v-tooltip>
   </v-app-bar>
 </template>
 
