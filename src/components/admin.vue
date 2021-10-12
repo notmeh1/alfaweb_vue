@@ -46,7 +46,7 @@
               <td>{{ item.registrationDate }}</td>
               <td>
                 <div class="d-flex">
-                  <v-btn color="primary" icon @click="$store.dispatch('admin/toggleOverlay')"><v-icon>mdi-pencil</v-icon></v-btn
+                  <v-btn color="primary" icon :to="{path: `/admin/edit/${item.id}`}"><v-icon>mdi-pencil</v-icon></v-btn
                   ><v-btn color="error" icon><v-icon>mdi-delete</v-icon></v-btn>
                 </div>
               </td>
@@ -55,25 +55,23 @@
         </template>
       </v-simple-table>
     </v-card>
-    <!-- put editCourse component in v-overlay --->
-    <v-overlay :value="editOverlay">
-      <EditCourse/>
-    </v-overlay>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import EditCourse from "../components/editCourse.vue"
 export default {
   computed: {
     ...mapState({
       cardsInfo: (state) => state.cardsInfo.cardsInfoList,
-      editOverlay: (state) => state.admin.editOverlay,
     }),
   },
-  components: {
-    EditCourse,
+  methods: {
+    editCourse(courseId) {
+      let id = courseId;
+      console.log(id)
+       this.$store.dispatch('editCourse', id)
+    }
   },
   mounted() {
     this.$store.dispatch("cardsInfo/getCoursesList");
