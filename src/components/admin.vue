@@ -32,9 +32,11 @@
                 <span v-if="item.durationCourse > 1">meses</span
                 ><span v-if="item.durationCourse === 1">mes</span>
               </td>
-              <v-chip color="green">
-                <td>${{ item.price.toLocaleString("es-CL") }}</td>
-              </v-chip>
+              <td>
+                <v-chip color="green">
+                  ${{ item.price.toLocaleString("es-CL") }}
+                </v-chip>
+              </td>
               <td>
                 <v-chip color="primary" v-if="item.state">
                   <span>Si</span>
@@ -46,7 +48,11 @@
               <td>{{ item.registrationDate }}</td>
               <td>
                 <div class="d-flex">
-                  <v-btn color="primary" icon :to="{path: `/admin/edit/${item.id}`}"><v-icon>mdi-pencil</v-icon></v-btn
+                  <v-btn
+                    color="primary"
+                    icon
+                    :to="{ path: `/admin/edit/${item.id}` }"
+                    ><v-icon>mdi-pencil</v-icon></v-btn
                   ><v-btn color="error" icon><v-icon>mdi-delete</v-icon></v-btn>
                 </div>
               </td>
@@ -69,12 +75,13 @@ export default {
   methods: {
     editCourse(courseId) {
       let id = courseId;
-      console.log(id)
-       this.$store.dispatch('editCourse', id)
-    }
+      console.log(id);
+      this.$store.dispatch("editCourse", id);
+    },
   },
   mounted() {
     this.$store.dispatch("cardsInfo/getCoursesList");
+    this.$vuetify.goTo(0, "lineal");
   },
 };
 </script>

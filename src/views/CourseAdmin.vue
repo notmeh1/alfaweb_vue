@@ -17,14 +17,23 @@
         </v-col>
         <v-col></v-col>
     </v-row>
+    <v-row class="mb-5">
+      <v-col></v-col>
+      <v-col cols="9">
+        <Stats/>
+      </v-col>
+      <v-col></v-col>
+    </v-row>
   </div>
 </template>
 
 <script>
 import Admin from "../components/admin.vue";
+import Stats from "../components/courseStats.vue";
 export default {
   components: {
     Admin,
+    Stats,
   },
 };
 </script>

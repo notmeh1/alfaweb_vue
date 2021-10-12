@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row class="my-10">
       <v-col></v-col>
     <v-col>
       <EditCourse />

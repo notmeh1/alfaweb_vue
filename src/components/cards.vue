@@ -82,6 +82,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch("cardsInfo/getCoursesList");
+    this.$vuetify.goTo(0, "lineal");
   },
 };
 </script>
