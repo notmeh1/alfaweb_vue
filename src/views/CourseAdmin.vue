@@ -10,7 +10,7 @@
         </v-col>
       </v-row>
     </v-parallax>
-    <v-row>
+    <v-row class="mb-10">
         <v-col></v-col>
         <v-col cols="9">
             <Admin />
