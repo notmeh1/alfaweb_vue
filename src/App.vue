@@ -17,6 +17,9 @@ export default {
   }),
   components: {
     Navbar,
+  },
+  mounted() {
+    this.$store.dispatch("cardsInfo/getCoursesList");
   }
 };
 </script>

@@ -9,4 +9,6 @@ export const adminModule = {
       }, 0);
     },
   },
+  mutations: {},
+  actions: {},
 };

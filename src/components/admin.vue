@@ -12,6 +12,8 @@
         <template v-slot:default>
           <thead>
             <tr>
+              <th class="text-left">Codigo</th>
+              <th class="text-left">Color</th>
               <th class="text-left">Curso</th>
               <th class="text-left">Cupos</th>
               <th class="text-left">Inscritos</th>
@@ -24,6 +26,8 @@
           </thead>
           <tbody>
             <tr v-for="item in cardsInfo" :key="item.name">
+              <td>{{ item.code }}</td>
+              <td><v-icon :color="item.color">mdi-circle</v-icon></td>
               <td>{{ item.name }}</td>
               <td>{{ item.stock }}</td>
               <td>{{ item.enrolledQty }}</td>
@@ -51,9 +55,11 @@
                   <v-btn
                     color="primary"
                     icon
-                    :to="{ path: `/admin/edit/${item.id}` }"
+                    :to="{ path: `/admin/edit/${item.code}` }"
                     ><v-icon>mdi-pencil</v-icon></v-btn
-                  ><v-btn color="error" icon><v-icon>mdi-delete</v-icon></v-btn>
+                  ><v-btn color="error" icon @click="deleteCourse(item.id)"
+                    ><v-icon>mdi-delete</v-icon></v-btn
+                  >
                 </div>
               </td>
             </tr>
@@ -66,6 +72,9 @@
 
 <script>
 import { mapState } from "vuex";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../main";
+
 export default {
   computed: {
     ...mapState({
@@ -73,15 +82,9 @@ export default {
     }),
   },
   methods: {
-    editCourse(courseId) {
-      let id = courseId;
-      console.log(id);
-      this.$store.dispatch("editCourse", id);
+    deleteCourse(id) {
+      deleteDoc(doc(db, "cardsInfo", id));
     },
-  },
-  mounted() {
-    this.$store.dispatch("cardsInfo/getCoursesList");
-    this.$vuetify.goTo(0, "lineal");
   },
 };
 </script>
