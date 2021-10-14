@@ -51,7 +51,7 @@
           v-model="getData.durationCourse"
         />
         <v-text-field
-          type="text"
+          type="date"
           label="Fecha de registro"
           v-model="getData.registrationDate"
         />

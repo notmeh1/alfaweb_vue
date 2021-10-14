@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="signInOverlay" persistent content-class="elevation-0">
+  <v-dialog v-model="signInOverlay" persistent content-class="elevation-0" height="100%">
     <v-row>
       <v-col></v-col>
       <v-col cols="8">

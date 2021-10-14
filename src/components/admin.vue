@@ -3,10 +3,20 @@
     <v-card>
       <v-card-title class="justify-center"
         >Lista de cursos
-        <v-btn color="success" icon @click="dialog=true"
-          ><v-icon>mdi-plus-circle</v-icon></v-btn
-        ></v-card-title
-      >
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              color="success"
+              icon
+              @click="dialog = true"
+              v-bind="attrs"
+              v-on="on"
+              ><v-icon>mdi-plus-circle</v-icon></v-btn
+            >
+          </template>
+          <span>Agregar curso</span>
+        </v-tooltip>
+      </v-card-title>
       <v-spacer></v-spacer>
       <v-simple-table>
         <template v-slot:default>
@@ -49,17 +59,40 @@
                   <span>No</span>
                 </v-chip>
               </td>
-              <td>{{ item.registrationDate }}</td>
+              <td>
+                <v-chip color="success" v-if="item.registrationDate">
+                  {{ item.registrationDate }}
+                </v-chip>
+              </td>
               <td>
                 <div class="d-flex">
-                  <v-btn
-                    color="primary"
-                    icon
-                    :to="{ path: `/admin/edit/${item.code}` }"
-                    ><v-icon>mdi-pencil</v-icon></v-btn
-                  ><v-btn color="error" icon @click="deleteCourse(item.id)"
-                    ><v-icon>mdi-delete</v-icon></v-btn
-                  >
+                  <v-tooltip top>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        color="primary"
+                        icon
+                        :to="{ path: `/admin/edit/${item.code}` }"
+                        v-bind="attrs"
+                        v-on="on"
+                        ><v-icon>mdi-pencil</v-icon></v-btn
+                      >
+                    </template>
+                    <span>Editar curso</span>
+                  </v-tooltip>
+
+                  <v-tooltip top>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        color="error"
+                        icon
+                        @click="deleteCourse(item.id)"
+                        v-bind="attrs"
+                        v-on="on"
+                        ><v-icon>mdi-delete</v-icon></v-btn
+                      >
+                    </template>
+                    <span>Borrar curso</span>
+                  </v-tooltip>
                 </div>
               </td>
             </tr>
@@ -67,7 +100,7 @@
         </template>
       </v-simple-table>
     </v-card>
-    <AddCourse :dialog.sync="dialog"/>
+    <AddCourse :dialog.sync="dialog" />
   </div>
 </template>
 
@@ -75,14 +108,14 @@
 import { mapState } from "vuex";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../main";
-import AddCourse from "../components/addCourse.vue"
+import AddCourse from "../components/addCourse.vue";
 
 export default {
   data: () => ({
     dialog: false,
   }),
   components: {
-    AddCourse
+    AddCourse,
   },
   computed: {
     ...mapState({

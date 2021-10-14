@@ -56,7 +56,7 @@
               v-model="newCourse.durationCourse"
             />
             <v-text-field
-              type="text"
+              type="date"
               label="Fecha de registro"
               v-model="newCourse.registrationDate"
             />
