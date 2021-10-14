@@ -119,6 +119,7 @@ export default {
     addCourseInfo() {
       addDoc(collection(db, "cardsInfo"), this.newCourse);
       this.$emit("update:dialog", false);
+      Object.keys(this.newCourse).forEach((i) => this.newCourse[i] = null)
     },
     close() {
       this.$emit("update:dialog", false);

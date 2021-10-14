@@ -39,7 +39,7 @@
       <v-btn :to="{ name: 'Login' }" exact v-if="!logInData.email"
         >Ingresar</v-btn
       >
-      <v-btn exact v-if="!logInData.email">Regístrate</v-btn>
+      <v-btn exact v-if="!logInData.email" @click="signInOverlay=true">Regístrate</v-btn>
     </v-toolbar-items>
     <v-spacer v-if="logInData.email"></v-spacer>
     <v-divider vertical v-if="logInData.email"></v-divider>
@@ -50,13 +50,13 @@
       }}</span></span
     >
     <!-- Log Out btn not showing fix--->
-    <v-tooltip bottom>
+    <v-tooltip bottom v-if="logInData.email">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
           color="error"
           icon
           @click="logOut"
-          v-if="logInData.email"
+          
           v-bind="attrs"
           v-on="on"
           ><v-icon>mdi-exit-to-app</v-icon></v-btn
@@ -64,14 +64,22 @@
       </template>
       <span>Cerrar sesion</span>
     </v-tooltip>
+    <Signin :signInOverlay.sync="signInOverlay"/>
   </v-app-bar>
 </template>
 
 <script>
 import { getAuth, signOut } from "firebase/auth";
 import { mapState } from "vuex";
+import Signin from "../components/signin.vue"
 
 export default {
+  data: () => ({
+    signInOverlay: false,
+  }),
+  components: {
+    Signin,
+  },
   methods: {
     logOut() {
       const auth = getAuth();

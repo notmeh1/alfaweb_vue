@@ -22,7 +22,6 @@
       />
       <v-btn class="rounded-xl" color="success" width="200px" @click="logIn">Ingresar</v-btn>
     </v-form>
-    <p class="pt-5">Si no tienes una cuenta regístrate aqui</p>
   </v-card>
 </template>
 
