@@ -3,7 +3,7 @@
     <v-card>
       <v-card-title class="justify-center"
         >Lista de cursos
-        <v-btn color="success" icon
+        <v-btn color="success" icon @click="dialog=true"
           ><v-icon>mdi-plus-circle</v-icon></v-btn
         ></v-card-title
       >
@@ -67,6 +67,7 @@
         </template>
       </v-simple-table>
     </v-card>
+    <AddCourse :dialog.sync="dialog"/>
   </div>
 </template>
 
@@ -74,8 +75,15 @@
 import { mapState } from "vuex";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../main";
+import AddCourse from "../components/addCourse.vue"
 
 export default {
+  data: () => ({
+    dialog: false,
+  }),
+  components: {
+    AddCourse
+  },
   computed: {
     ...mapState({
       cardsInfo: (state) => state.cardsInfo.cardsInfoList,
