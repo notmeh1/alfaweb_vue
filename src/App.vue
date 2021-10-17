@@ -1,9 +1,9 @@
 <template>
   <v-app>
     <v-main class="pt-0">
-      <Navbar/>
+      <Navbar />
       <router-view />
-      <Snackbars/>
+      <Snackbars />
     </v-main>
   </v-app>
 </template>
@@ -23,6 +23,6 @@ export default {
   },
   mounted() {
     this.$store.dispatch("cardsInfo/getCoursesList");
-  }
+  },
 };
 </script>
