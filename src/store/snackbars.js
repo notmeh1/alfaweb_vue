@@ -1,51 +1,17 @@
 export const snackbarModule = {
     namespaced: true,
     state: {
-        logInAlert: false,
-        logOutAlert: false,
-        SignInAlert: false,
-        newCourseAlert: false,
-        editCourseAlert: false,
-        deleteCourseAlert: false,
-    },
-    mutations: {
-        LOG_IN(state) {
-            state.logInAlert = true
+        logIn: {
+            active: false,
+            timeout: 2500,
         },
-        LOG_OUT(state) {
-            state.logOutAlert = true
+        logOut: {
+            active: false,
+            timeout: 2500,
         },
-        SIGN_IN(state) {
-            state.SignInAlert = true
-        },
-        NEW_COURSE(state) {
-            state.newCourseAlert = true
-        },
-        EDIT_COURSE(state) {
-            state.editCourseAlert = true
-        },
-        DELETE_COURSE(state) {
-            state.deleteCourseAlert = true
+        signIn: {
+            active: false,
+            timeout: 2500,
         }
-    },
-    actions: {
-        logIn({commit}) {
-            commit("LOG_IN")
-        },
-        logOut({commit}) {
-            commit("LOG_OUT")
-        },
-        signIn({commit}) {
-            commit("SIGN_IN")
-        },
-        newCourse({commit}) {
-            commit("NEW_COURSE")
-        },
-        editCourse({commit}) {
-            commit("EDIT_COURSE")
-        },
-        deleteCourse({commit}) {
-            commit("DELETE_COURSE")
-        },
     },
 }

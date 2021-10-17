@@ -143,7 +143,7 @@ export default {
             title: "<h4 style='color: #ffffff';>Listo!</h4>",
             html: "<p style='color: #ffffff';>El curso ha sido borrado.</p>",
             icon: "success",
-            background: "#263238"
+            background: "#263238",
           });
         }
       });

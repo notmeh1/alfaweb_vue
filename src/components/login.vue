@@ -22,7 +22,9 @@
         outlined
         dense
       />
-      <v-btn class="rounded-xl" color="success" width="200px" @click="logIn">Ingresar</v-btn>
+      <v-btn class="rounded-xl" color="success" width="200px" @click="logIn"
+        >Ingresar</v-btn
+      >
     </v-form>
   </v-card>
 </template>
@@ -40,21 +42,24 @@ export default {
   methods: {
     logIn() {
       const auth = getAuth();
-      signInWithEmailAndPassword(auth, this.loginData.email, this.loginData.password)
-      .then((userCredentials) => {
-        // Signed in
-        this.$store.dispatch("login/submitLogIn", this.loginData)
-        const user = userCredentials.user
-        console.log(user)
-      })
-      .catch((error) => {
-        // If there is an error
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage)
-      })
-
-    }
+      signInWithEmailAndPassword(
+        auth,
+        this.loginData.email,
+        this.loginData.password
+      )
+        .then((userCredentials) => {
+          // Signed in
+          this.$store.dispatch("login/submitLogIn", this.loginData);
+          const user = userCredentials.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          // If there is an error
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode, errorMessage);
+        });
+    },
   },
 };
 </script>

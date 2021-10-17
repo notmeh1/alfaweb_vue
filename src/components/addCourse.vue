@@ -47,7 +47,10 @@
             <v-text-field
               required
               type="number"
-              :rules="[(v) => !!v || 'Por favor escribe la cantidad de cupos']"
+              :rules="[
+                (v) =>
+                  /^\d+$/.test(v) || 'Por favor escribe la cantidad de cupos',
+              ]"
               min="1"
               max="1000"
               label="Cupos del curso"
@@ -57,17 +60,23 @@
               required
               type="number"
               :rules="[
-                (v) => !!v || 'Por favor escribe la cantidad de inscritos',
+                (v) =>
+                  /^\d+$/.test(v) ||
+                  'Por favor escribe la cantidad de inscritos',
                 stockCheck,
               ]"
-              min="1"
+              min="0"
               label="Inscritos"
               v-model.number="newCourse.enrolledQty"
             />
             <v-text-field
               required
+              prefix="$"
               type="number"
-              :rules="[(v) => !!v || 'Por favor escribe el costo del curso']"
+              :rules="[
+                (v) =>
+                  /^\d+$/.test(v) || 'Por favor escribe el costo del curso',
+              ]"
               min="1"
               label="Costo del curso"
               v-model.number="newCourse.price"
@@ -75,7 +84,10 @@
             <v-text-field
               required
               type="number"
-              :rules="[(v) => !!v || 'Por favor escribe la duracion del curso']"
+              :rules="[
+                (v) =>
+                  /^\d+$/.test(v) || 'Por favor escribe la duracion del curso',
+              ]"
               min="1"
               max="1000"
               label="Duracion del curso (número de meses)"
@@ -83,6 +95,7 @@
             />
             <v-text-field
               disabled
+              placeholder="AAAA-MM-DD"
               type="text"
               label="Fecha de registro"
               v-model="newCourse.registrationDate"
@@ -145,9 +158,7 @@ export default {
       router.push("/admin");
     },
     addCourseInfo() {
-      if (
-        this.$refs.form.validate()
-      ) {
+      if (this.$refs.form.validate()) {
         this.$swal({
           title: "<h4 style='color: #ffffff';>¿Estás seguro de esto?</h4>",
           textColor: "#fffff",
@@ -198,11 +209,11 @@ export default {
     var today = new Date();
 
     var date =
-      today.getDate() +
-      "-" +
+      today.getFullYear() +
+      "/" +
       (today.getMonth() + 1) +
-      "-" +
-      today.getFullYear();
+      "/" +
+      today.getDate();
     this.newCourse.registrationDate = date;
   },
 };

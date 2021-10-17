@@ -13,11 +13,13 @@ export const loginModule = {
     SUBMIT_LOG_IN(state, logInData) {
       state.logInData = logInData;
       router.push("/")
+      state.snackbars.logIn.active = true;
     },
     SUBMIT_LOG_OUT(state) {
       state.logInData.email = null;
       state.logInData.password = null;
       router.push("/login")
+      state.snackbars.logOut.active = true;
     }
   },
   actions: {

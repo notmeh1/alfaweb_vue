@@ -40,7 +40,9 @@
         <v-text-field
           required
           type="number"
-          :rules="[(v) => !!v || 'Por favor escribe la cantidad de cupos']"
+          :rules="[
+            (v) => /^\d+$/.test(v) || 'Por favor escribe la cantidad de cupos',
+          ]"
           min="1"
           max="1000"
           label="Cupos del curso"
@@ -49,18 +51,23 @@
         <v-text-field
           required
           type="number"
+          :disabled="getData.state"
           :rules="[
-            (v) => !!v || 'Por favor escribe la cantidad de inscritos',
+            (v) =>
+              /^\d+$/.test(v) || 'Por favor escribe la cantidad de inscritos',
             stockCheck,
           ]"
-          min="1"
+          min="0"
           label="Inscritos"
           v-model.number="getData.enrolledQty"
         />
         <v-text-field
           required
+          prefix="$"
           type="number"
-          :rules="[(v) => !!v || 'Por favor escribe el costo del curso']"
+          :rules="[
+            (v) => /^\d+$/.test(v) || 'Por favor escribe el costo del curso',
+          ]"
           min="1"
           label="Costo del curso"
           v-model.number="getData.price"
@@ -68,21 +75,51 @@
         <v-text-field
           required
           type="number"
-          :rules="[(v) => !!v || 'Por favor escribe la duracion del curso']"
+          :rules="[
+            (v) => /^\d+$/.test(v) || 'Por favor escribe la duracion del curso',
+          ]"
           min="1"
           max="1000"
           label="Duracion del curso (número de meses)"
           v-model.number="getData.durationCourse"
         />
-        <v-text-field
-          required
-          type="text"
-          :rules="[(v) => !!v || 'Por favor escribe la fecha de registro']"
-          label="Fecha de registro"
-          v-model="getData.registrationDate"
-        />
+        <v-menu
+          ref="menu"
+          v-model="menu"
+          :close-on-content-click="false"
+          :return-value.sync="getData.registrationDate"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              required
+              v-model="getData.registrationDate"
+              locale="es"
+              :rules="[(v) => !!v || 'Por favor escribe la fecha de registro']"
+              label="Fecha de registro"
+              append-icon="mdi-calendar"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker v-model="getData.registrationDate" no-title scrollable>
+            <v-spacer></v-spacer>
+            <v-btn text color="primary" @click="menu = false"> Cancel </v-btn>
+            <v-btn
+              text
+              color="primary"
+              @click="$refs.menu.save(getData.registrationDate)"
+            >
+              OK
+            </v-btn>
+          </v-date-picker>
+        </v-menu>
         <v-select
           label="Terminado"
+          :rules="[stateCheck]"
           v-model="getData.state"
           :items="stateSelect"
         ></v-select>
@@ -106,6 +143,7 @@ import { db } from "../main";
 import { doc, setDoc } from "firebase/firestore";
 export default {
   data: () => ({
+    menu: false,
     valid: true,
     stateSelect: [
       {
@@ -164,6 +202,14 @@ export default {
       if (this.getData.enrolledQty > this.getData.stock) {
         this.valid = false;
         return "El numero de inscritos es mayor que el stock disponible";
+      } else {
+        return true;
+      }
+    },
+    stateCheck() {
+      if (this.getData.state && this.getData.enrolledQty > 0) {
+        this.getData.enrolledQty = 0;
+        return true;
       } else {
         return true;
       }

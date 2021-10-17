@@ -60,6 +60,7 @@ export default {
       createUserWithEmailAndPassword(auth, this.signInData.email, this.signInData.password)
       .then((userCredentials) => {
         // Signed in
+        this.$store.state.snackbars.signIn.active = true
         this.$store.dispatch("login/submitLogIn", this.signInData)
         this.close()
         const user = userCredentials.user
