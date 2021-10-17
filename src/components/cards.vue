@@ -14,7 +14,7 @@
     <v-col
       v-for="card in cardsInfo"
       :key="card.id"
-      cols="4"
+      cols="12"
       xl="3"
       lg="4"
       md="6"

@@ -39,7 +39,7 @@ const routes = [
     }
   },
   {
-    path: "/admin/edit/:code",
+    path: "/admin/edit/:id",
     component: () => import(/* webpackChunkName: "edit_course" */ "../views/manageCourse.vue"),
     meta: {
       requireLogin: true,

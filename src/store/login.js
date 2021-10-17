@@ -1,4 +1,5 @@
 import router from "../router";
+import { snackbarModule } from "./snackbars";
 
 export const loginModule = {
   namespaced: true,
@@ -27,4 +28,7 @@ export const loginModule = {
       commit("SUBMIT_LOG_OUT");
     }
   },
+  modules: {
+    snackbars: snackbarModule,
+  }
 };

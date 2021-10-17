@@ -1,5 +1,5 @@
 import { collection, onSnapshot } from "firebase/firestore";
-import { db } from "@/main";
+import { db } from "../main";
 
 export const cardsInfoModule = {
   namespaced: true,

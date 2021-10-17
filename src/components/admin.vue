@@ -71,7 +71,7 @@
                       <v-btn
                         color="primary"
                         icon
-                        :to="{ path: `/admin/edit/${item.code}` }"
+                        :to="{ path: `/admin/edit/${item.id}` }"
                         v-bind="attrs"
                         v-on="on"
                         ><v-icon>mdi-pencil</v-icon></v-btn
@@ -124,7 +124,29 @@ export default {
   },
   methods: {
     deleteCourse(id) {
-      deleteDoc(doc(db, "cardsInfo", id));
+      this.$swal({
+        title: "<h4 style='color: #ffffff';>Borrar curso?</h4>",
+        html: "<p style='color: #ffffff';>No podrás revertir los cambios</p>",
+        textColor: "#fffff",
+        icon: "warning",
+        iconColor: "red",
+        background: "#263238",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Borrar curso",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          deleteDoc(doc(db, "cardsInfo", id));
+          this.$swal({
+            title: "<h4 style='color: #ffffff';>Listo!</h4>",
+            html: "<p style='color: #ffffff';>El curso ha sido borrado.</p>",
+            icon: "success",
+            background: "#263238"
+          });
+        }
+      });
     },
   },
 };

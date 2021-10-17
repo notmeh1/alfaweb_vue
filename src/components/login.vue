@@ -5,16 +5,18 @@
     >
     <v-form>
       <v-text-field
-        class="rounded-xl"
+        class="rounded-xl px-5"
         type="email"
+        prepend-inner-icon="mdi-account"
         label="Correo electronico"
         v-model="loginData.email"
         outlined
         dense
       />
       <v-text-field
-        class="rounded-xl"
+        class="rounded-xl px-5"
         type="password"
+        prepend-inner-icon="mdi-lock"
         label="Contraseña"
         v-model="loginData.password"
         outlined

@@ -2,14 +2,14 @@
   <v-dialog v-model="signInOverlay" persistent content-class="elevation-0" height="100%">
     <v-row>
       <v-col></v-col>
-      <v-col cols="8">
-        <v-card class="rounded-md text-center pa-5" elevation="3">
+      <v-col cols="7">
+        <v-card class="rounded-md blue-grey darken-4 text-center pa-4" elevation="3">
           <v-card-title class="justify-center mb-4"
             ><h1>Registrate</h1></v-card-title
           >
-          <v-form>
+          <v-form class="px-10">
             <v-text-field
-              class="rounded-xl"
+              class="rounded-xl "
               type="email"
               label="Ingresa tu correo electronico"
               v-model="signInData.email"
@@ -25,10 +25,10 @@
               dense
             />
             <div class="d-flex">
-              <v-btn class="rounded-xl" color="success" width="200px"
+              <v-btn class="rounded-xl" color="success" width="200px" @click="signIn"
                 >Crear cuenta</v-btn
               >
-              <v-spacer></v-spacer>
+              <v-spacer class="mx-2"></v-spacer>
               <v-btn
                 class="rounded-xl"
                 color="error"
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 export default {
   data: () => ({
     signInData: {
@@ -54,6 +55,23 @@ export default {
     },
   }),
   methods: {
+    signIn() {
+      const auth = getAuth();
+      createUserWithEmailAndPassword(auth, this.signInData.email, this.signInData.password)
+      .then((userCredentials) => {
+        // Signed in
+        this.$store.dispatch("login/submitLogIn", this.signInData)
+        this.close()
+        const user = userCredentials.user
+        console.log(user)
+      })
+      .catch((error) => {
+        // If there is an error
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage)
+      })
+    },
     close() {
       this.$emit("update:signInOverlay", false);
     },

@@ -6,6 +6,8 @@ import vuetify from "./plugins/vuetify";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
+import "./plugins/sweetalert2"
+
 const firebaseConfig = initializeApp({
   apiKey: "AIzaSyC_jbugH9SS5U4kZ_Eueq1ytYxYhATiwqE",
   authDomain: "alfaweb-nuxt.firebaseapp.com",
