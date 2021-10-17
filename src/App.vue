@@ -3,6 +3,7 @@
     <v-main class="pt-0">
       <Navbar />
       <router-view />
+      <Footer/>
       <Snackbars />
     </v-main>
   </v-app>
@@ -11,6 +12,8 @@
 <script>
 import Navbar from "./components/navbar.vue";
 import Snackbars from "./components/snackbars.vue";
+import Footer from "./components/footer.vue";
+
 export default {
   name: "App",
 
@@ -19,6 +22,7 @@ export default {
   }),
   components: {
     Navbar,
+    Footer,
     Snackbars,
   },
   mounted() {

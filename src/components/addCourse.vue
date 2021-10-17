@@ -210,9 +210,9 @@ export default {
 
     var date =
       today.getFullYear() +
-      "/" +
+      "-" +
       (today.getMonth() + 1) +
-      "/" +
+      "-" +
       today.getDate();
     this.newCourse.registrationDate = date;
   },
